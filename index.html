@@ -109,12 +109,35 @@
   transform: scale(1.1);
 }
 
+  /* Add this at the end of your existing CSS */
+  .snowflake {
+    position: fixed;
+    pointer-events: none;
+    width: 6px;
+    height: 6px;
+    background: white;
+    border-radius: 50%;
+    filter: blur(1px);
+    animation: fall linear forwards;
+  }
+
+  @keyframes fall {
+    0% {
+      transform: translateY(0) translateX(0);
+      opacity: 1;
+    }
+    100% {
+      transform: translateY(100px) translateX(20px);
+      opacity: 0;
+    }
+  }
+</style>
 
 </style>
 
 
   </head>
-  <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+  < data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
 
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar ftco-navbar-light site-navbar-target" id="ftco-navbar">
@@ -614,6 +637,39 @@ Outside of academics, I enjoy playing badminton 🏸, watching documentaries, an
 	  </footer>
 
 
+
+      <!-- Add this just before the closing </body> tag -->
+<script>
+  document.addEventListener('mousemove', (e) => {
+    const snowContainer = document.getElementById('snow-container');
+
+    // Create 3 snowflakes at once
+    for(let i = 0; i < 3; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+
+      // Position at mouse coordinates
+      snowflake.style.left = `${e.clientX}px`;
+      snowflake.style.top = `${e.clientY}px`;
+
+      // Randomize animation
+      const duration = Math.random() * 3 + 1; // 1-4 seconds
+      const drift = (Math.random() - 0.5) * 40; // -20px to +20px
+
+      snowflake.style.animation =
+        `fall ${duration}s linear forwards`;
+      snowflake.style.setProperty('--drift', `${drift}px`);
+
+      snowContainer.appendChild(snowflake);
+
+      // Remove element after animation
+      setTimeout(() => snowflake.remove(), duration * 1000);
+    }
+  });
+</script>
+
+
+
   <!-- loader -->
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
@@ -632,6 +688,36 @@ Outside of academics, I enjoy playing badminton 🏸, watching documentaries, an
   <script src="js/scrollax.min.js"></script>
 
   <script src="js/main.js"></script>
+
+  <!-- Add this just before the closing </body> tag -->
+    <!-- Add this just before the closing </body> tag -->
+<div id="snow-container"></div>
+
+<script>
+  // Snow effect JavaScript code here
+  document.addEventListener('mousemove', (e) => {
+    const snowContainer = document.getElementById('snow-container');
+
+    for(let i = 0; i < 3; i++) {
+      const snowflake = document.createElement('div');
+      snowflake.classList.add('snowflake');
+
+      snowflake.style.left = `${e.clientX}px`;
+      snowflake.style.top = `${e.clientY}px`;
+
+      const duration = Math.random() * 3 + 1;
+      const drift = (Math.random() - 0.5) * 40;
+
+      snowflake.style.animation =
+        `fall ${duration}s linear forwards`;
+      snowflake.style.setProperty('--drift', `${drift}px`);
+
+      snowContainer.appendChild(snowflake);
+
+      setTimeout(() => snowflake.remove(), duration * 1000);
+    }
+  });
+</script>
 
   </body>
 </html>
